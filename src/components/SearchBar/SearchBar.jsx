@@ -1,10 +1,13 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import { Form, FormBtn, Input } from "./styled";
+import { useSearchParams } from "react-router-dom";
 
 
 export const SearchBar = ({ onSubmit = () => { } }) => {
-    const [search, setSearch] = useState('');
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [search, setSearch] = useState(() => searchParams.get('query') ?? '');
+
 
     const onChange = e => setSearch(e.currentTarget.value);
 
@@ -12,6 +15,7 @@ export const SearchBar = ({ onSubmit = () => { } }) => {
         e.preventDefault();
         onSubmit(search);
         setSearch('');
+        setSearchParams({ query: search });
     };
 
     return (

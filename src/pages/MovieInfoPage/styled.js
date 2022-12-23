@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
 
 export const Container = styled.div`
   display: flex;
@@ -111,5 +112,15 @@ export const Linked = styled(NavLink)`
       color: white;
       background-color: #8978a3;
     }
+  }
+`;
+
+export const IconBack = styled(BiArrowBack)`
+  width: 32px;
+  height: 32px;
+  fill: white;
+  transition: fill 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    fill: white;
   }
 `;

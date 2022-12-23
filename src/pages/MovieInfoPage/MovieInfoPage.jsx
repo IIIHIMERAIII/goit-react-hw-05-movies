@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect, Suspense } from "react";
 import { getFilmInfo, contentURL } from "components/services/Api/getFilms";
-import { Outlet, useParams, useLocation } from 'react-router-dom';
+import { Outlet, useParams, useNavigate } from 'react-router-dom';
 import {
     Wrapper,
     Image,
@@ -15,13 +15,13 @@ import {
     WrapperOutlet,
     Linked,
     Btn,
+    IconBack,
 } from "./styled";
 
 const MovieInfoPage = () => {
-    const location = useLocation();
-    const backLinkHref = location.state?.from ?? '/';
     const [film, setFilm] = useState("");
     const { id } = useParams();
+    let navigate = useNavigate();
 
     useEffect(() => {
         async function getFilm(id) {
@@ -40,7 +40,8 @@ const MovieInfoPage = () => {
 
     return (
         <Container>
-            <BackBtn to={backLinkHref}> ⇐
+            <BackBtn onClick={() => navigate(-1)}>
+                <IconBack />
             </BackBtn>
             {film && (
                 <section>
@@ -70,10 +71,10 @@ const MovieInfoPage = () => {
                         </Desc>
                     </Wrapper>
                     <WrapperBtn>
-                        <Linked to="cast" state={{ from: backLinkHref }}>
+                        <Linked to="cast" >
                             <Btn>Cast</Btn>
                         </Linked>
-                        <Linked to="reviews" state={{ from: backLinkHref }}>
+                        <Linked to="reviews" >
                             <Btn>Reviews</Btn>
                         </Linked>
                     </WrapperBtn>
