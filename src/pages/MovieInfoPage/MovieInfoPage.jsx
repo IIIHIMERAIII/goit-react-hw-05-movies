@@ -22,7 +22,7 @@ const MovieInfoPage = () => {
     const [film, setFilm] = useState("");
     const { id } = useParams();
     const location = useLocation();
-    const backLinkHref = location.state?.from ?? '/movies';
+    const backLinkHref = location.state?.from ?? '/';
 
     useEffect(() => {
         async function getFilm(id) {
@@ -38,7 +38,7 @@ const MovieInfoPage = () => {
 
     const { title, overview, genres, release_date, vote_average, poster_path } =
         film;
-    console.log(location.state)
+
     return (
         <Container>
             <BackBtn to={backLinkHref} >
@@ -72,10 +72,10 @@ const MovieInfoPage = () => {
                         </Desc>
                     </Wrapper>
                     <WrapperBtn>
-                        <Linked to="cast" state={{ backLinkHref }} >
+                        <Linked to="cast" state={{ from: backLinkHref }} >
                             <Btn>Cast</Btn>
                         </Linked>
-                        <Linked to="reviews" state={{ backLinkHref }} >
+                        <Linked to="reviews" state={{ from: backLinkHref }} >
                             <Btn>Reviews</Btn>
                         </Linked>
                     </WrapperBtn>
