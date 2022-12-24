@@ -41,7 +41,7 @@ const MovieInfoPage = () => {
     console.log(location.state)
     return (
         <Container>
-            <BackBtn to={backLinkHref} > back
+            <BackBtn to={backLinkHref} > ⇐
                 <IconBack />
             </BackBtn>
             {film && (
