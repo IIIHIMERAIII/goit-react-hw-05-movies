@@ -8,8 +8,10 @@ max-width: 600px;
 background-color: #fff;
 border-radius: 3px;
 overflow: hidden;
-margin-top: 25px;
 height: 50px;
+margin-top:50px;
+margin-right: auto;
+margin-left: auto;
 `;
 
 export const FormBtn = styled.button`

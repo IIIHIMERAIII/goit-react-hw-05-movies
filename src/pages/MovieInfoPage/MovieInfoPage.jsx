@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect, Suspense } from "react";
 import { getFilmInfo, contentURL } from "components/services/Api/getFilms";
-import { Outlet, useParams, useNavigate } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import {
     Wrapper,
     Image,
@@ -21,7 +21,8 @@ import {
 const MovieInfoPage = () => {
     const [film, setFilm] = useState("");
     const { id } = useParams();
-    let navigate = useNavigate();
+    const location = useLocation();
+    const backLinkHref = location.state?.from ?? '/movies';
 
     useEffect(() => {
         async function getFilm(id) {
@@ -37,10 +38,10 @@ const MovieInfoPage = () => {
 
     const { title, overview, genres, release_date, vote_average, poster_path } =
         film;
-
+    console.log(location.state)
     return (
         <Container>
-            <BackBtn onClick={() => navigate(-1)}>
+            <BackBtn to={backLinkHref} > back
                 <IconBack />
             </BackBtn>
             {film && (
@@ -71,10 +72,10 @@ const MovieInfoPage = () => {
                         </Desc>
                     </Wrapper>
                     <WrapperBtn>
-                        <Linked to="cast" >
+                        <Linked to="cast" state={{ backLinkHref }} >
                             <Btn>Cast</Btn>
                         </Linked>
-                        <Linked to="reviews" >
+                        <Linked to="reviews" state={{ backLinkHref }} >
                             <Btn>Reviews</Btn>
                         </Linked>
                     </WrapperBtn>

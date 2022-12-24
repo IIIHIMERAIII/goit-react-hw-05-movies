@@ -1,16 +1,27 @@
-import { contentURL } from "components/services/Api/getFilms";
-import { ListItem, Poster, Title, IdLink } from "./styled";
+import PropTypes from 'prop-types';
+import { useLocation } from "react-router-dom";
+import { TrendListItem } from "components/TrendListItem/TrendListItem";
+import { ListItem, MovieList, IdLink } from "./styled";
 
-export const TrendListItem = ({ data }) => {
-    const { title, poster_path, id } = data;
+export const TrendFilms = ({ movies }) => {
+    const location = useLocation();
     return (
         <>
-            <ListItem key={id}>
-                <IdLink to={`/movie/${id}`}>
-                    <Poster src={contentURL + poster_path} alt={title} />
-                    <Title>{title}</Title>
-                </IdLink>
-            </ListItem>
+            {movies?.length > 0 && (
+                <MovieList>
+                    {movies.map(film => (
+                        <ListItem key={film.id}>
+                            <IdLink to={`/movie/${film.id}`} state={{ from: location }}>
+                                <TrendListItem film={film} />
+                            </IdLink>
+                        </ListItem>
+                    ))}
+                </MovieList>
+            )}
         </>
-    )
+    );
+};
+
+TrendFilms.propTypes = {
+    movies: PropTypes.array,
 };

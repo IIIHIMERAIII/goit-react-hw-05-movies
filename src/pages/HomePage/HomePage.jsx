@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getTrendFilms } from "components/services/Api/getFilms";
-import { TrendListItem } from "components/TrendList/TrendList";
-import { TrendList, Main } from "./styled";
+import { Main } from "./styled";
+import { TrendFilms } from "components/TrendList/TrendList";
 
 const HomePage = () => {
     const [films, setFilms] = useState([]);
@@ -20,13 +20,7 @@ const HomePage = () => {
 
     return (
         <Main>
-            <TrendList>
-                {films.map(film => (
-                    <TrendListItem
-                        data={film}
-                    />
-                ))}
-            </TrendList>
+            {films.length > 0 && <TrendFilms movies={films} />}
         </Main>
     )
 };

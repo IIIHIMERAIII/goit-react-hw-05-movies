@@ -1,49 +1,20 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { SearchBar } from "components/SearchBar/SearchBar";
-import { TrendListItem } from "components/TrendList/TrendList";
-import { getFindFilm } from "components/services/Api/getFilms";
-import { TrendList } from "./styled";
-import { Main } from "./styled";
+import { useState } from 'react';
+import { Main } from './styled';
+import SearchBar from 'components/SearchBar/SearchBar';
+import { TrendFilms } from 'components/TrendList/TrendList';
 
-export const MoviesPage = () => {
-    const [films, setFilms] = useState([]);
-    const [searchParams] = useSearchParams();
-
-    const keyWord = searchParams.get('query') ?? '';
-    useEffect(() => {
-        if (!keyWord) return;
-        async function getFilms(searchQ) {
-            try {
-                const { data } = await getFindFilm(searchQ);
-
-                setFilms(data.results);
-            } catch (error) {
-                console.log(error);
-            }
-
-        }
-        getFilms(keyWord);
-
-    }, [keyWord]);
+const Movie = () => {
+    const [movies, setMovies] = useState(null);
 
     return (
         <>
             <Main>
                 <SearchBar
+                    setMovies={setMovies}
                 />
-                <TrendList>
-                    {films.map(film => (
-                        <TrendListItem
-                            data={film}
-                        />
-                    ))}
-                </TrendList>
+                {movies && <TrendFilms movies={movies} />}
             </Main>
         </>
     )
 };
-
-
-export default MoviesPage;
+export default Movie;
