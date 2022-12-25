@@ -15,10 +15,6 @@ const SearchBar = ({ setMovies }) => {
         reset,
     } = useForm({ defaultValues: { search: '' } });
 
-    const onChange = ({ search }) => {
-        setSearch(search);
-    }
-
     const onSubmit = ({ search }) => {
         setSearch(search);
         setSearchParams({ query: search });
@@ -45,17 +41,12 @@ const SearchBar = ({ setMovies }) => {
 
     return (
         <>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                 <FormBtn type="submit" />
                 <Input
                     {...register('search', { required: 'This field is required' })}
-                    value={search}
-                    onChange={onChange}
-                    name="search"
-                    type="text"
-                    autocomplete="off"
-                    autoFocus
                     placeholder="Search movie"
+                    autoFocus
                 />
             </Form>
         </>
